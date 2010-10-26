@@ -25,7 +25,6 @@
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-core</artifactId>
 			<version>2.3.1-SNAPSHOT</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -40,4 +39,17 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>sourceforge</id>
+			<url>https://oss.sonatype.org/content/repositories/sourceforge-snapshots</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 </project>
