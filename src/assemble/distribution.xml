@@ -22,6 +22,14 @@
 			<outputDirectory>/src/main/java/org/sharrissf/sample/</outputDirectory>
 		</fileSet>
 		<fileSet>
+			<directory>./</directory>
+			<includes>
+				<include>README</include>
+			</includes>
+			<filtered>true</filtered>
+			<outputDirectory>/</outputDirectory>
+		</fileSet>
+		<fileSet>
 			<directory>${basedir}/src/assemble</directory>
 			<includes>
 				<include>*.sh</include>
