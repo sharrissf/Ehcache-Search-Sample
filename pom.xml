@@ -9,6 +9,21 @@
 	</description>
 	<build>
 		<plugins>
+  <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-assembly-plugin</artifactId>
+                                <version>2.2-beta-5</version>
+                                <configuration>
+                                        <filters>
+                                                <filter>src/assemble/filter.properties</filter>
+                                        </filters>
+                                        <descriptors>
+                                                <descriptor>src/assemble/distribution.xml</descriptor>
+                                        </descriptors>
+                                        <tarLongFileMode>gnu</tarLongFileMode>
+                                </configuration>
+                        </plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -40,16 +55,10 @@
 		</dependency>
 	</dependencies>
 	<repositories>
-		<repository>
-			<id>sourceforge</id>
-			<url>https://oss.sonatype.org/content/repositories/sourceforge-snapshots</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
+          <repository> 
+            <id>terracotta-snapshots</id> 
+            <url>http://www.terracotta.org/download/reflector/snapshots</url>
+          </repository>
 	</repositories>
 
 </project>
