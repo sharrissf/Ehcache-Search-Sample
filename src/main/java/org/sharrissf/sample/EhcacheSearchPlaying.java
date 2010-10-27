@@ -108,6 +108,15 @@ public class EhcacheSearchPlaying {
 
         read();
 
+        System.out.println("Find the average age of all people between 30 and 40");
+
+        Query agesBetween = cache.createQuery();
+        agesBetween.add(age.between(30, 40));
+        agesBetween.includeAggregator(new Average(), age);
+        System.out.println("Average age between 30 and 40: " + agesBetween.execute().aggregateResult());
+
+        read();
+
         System.out.println("Find the count of people from NJ");
 
         Query newJerseyCountQuery = cache.createQuery().add(state.eq("NJ"));
