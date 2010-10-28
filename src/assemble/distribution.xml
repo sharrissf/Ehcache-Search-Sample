@@ -11,7 +11,7 @@
 				<include>*.sources.jar</include>
 				<include>*.javadoc.jar</include>
 			</includes>
-			<outputDirectory>/</outputDirectory>
+			<outputDirectory>/target/</outputDirectory>
 		</fileSet>
 		<fileSet>
 			<directory>src/main/java/org/sharrissf/sample/</directory>
@@ -25,6 +25,7 @@
 			<directory>./</directory>
 			<includes>
 				<include>README</include>
+				<include>pom.xml</include>
 			</includes>
 			<filtered>true</filtered>
 			<outputDirectory>/</outputDirectory>
@@ -41,12 +42,12 @@
 	</fileSets>
         <dependencySets>
                 <dependencySet>
-                        <outputDirectory>/</outputDirectory>
+                        <outputDirectory>/lib</outputDirectory>
                         <unpack>false</unpack>
                         <scope>compile</scope>
                 </dependencySet>
                 <dependencySet>
-                        <outputDirectory>/</outputDirectory>
+                        <outputDirectory>/lib</outputDirectory>
                         <unpack>false</unpack>
                         <scope>provided</scope>
                 </dependencySet>
