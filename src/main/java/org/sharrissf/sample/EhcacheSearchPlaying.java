@@ -44,11 +44,14 @@ public class EhcacheSearchPlaying {
         // Create attributes on the stuff we want to be able to search on.
 
         // You can use an expression for getting at the value to be indexed on a cache or you can code your own
+
+        // Expression
         SearchAttribute sa = new SearchAttribute();
         sa.setExpression("value.getAge()");
         sa.setName("age");
         cacheConfig.addSearchAttribute(sa);
 
+        // Coding your own
         sa = new SearchAttribute();
         sa.className("org.sharrissf.sample.EhcacheSearchPlaying$NameAttributeExtractor");
         sa.setName("name");
@@ -63,6 +66,16 @@ public class EhcacheSearchPlaying {
         sa.setExpression("value.getAddress().getState()");
         sa.setName("state");
         cacheConfig.addSearchAttribute(sa);
+
+        // If you want to initialize it via ehcache.xml it would look like this
+        // <cache name="test" maxElementsInMemory="0" eternal="true" overflowToDisk="false">
+        //   <searchAttribute name="age" expression="value.getAge()"/>
+        //   <searchAttribute name="name" class="org.sharrissf.sample.EhcacheSearchPlaying$NameAttributeExtractor"/>
+        //   <searchAttribute name="gender" expression="value.getGender()"/>
+        //   <searchAttribute name="state" expression="value.getState()"/>
+        // </cache>
+
+       
 
         cacheManagerConfig.addCache(cacheConfig);
 
