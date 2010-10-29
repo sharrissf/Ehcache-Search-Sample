@@ -9,6 +9,7 @@ import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.Configuration;
 import net.sf.ehcache.config.SearchAttribute;
 import net.sf.ehcache.search.Attribute;
+import net.sf.ehcache.search.Direction;
 import net.sf.ehcache.search.Query;
 import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
@@ -69,13 +70,11 @@ public class EhcacheSearchPlaying {
 
         // If you want to initialize it via ehcache.xml it would look like this
         // <cache name="test" maxElementsInMemory="0" eternal="true" overflowToDisk="false">
-        //   <searchAttribute name="age" expression="value.getAge()"/>
-        //   <searchAttribute name="name" class="org.sharrissf.sample.EhcacheSearchPlaying$NameAttributeExtractor"/>
-        //   <searchAttribute name="gender" expression="value.getGender()"/>
-        //   <searchAttribute name="state" expression="value.getState()"/>
+        // <searchAttribute name="age" expression="value.getAge()"/>
+        // <searchAttribute name="name" class="org.sharrissf.sample.EhcacheSearchPlaying$NameAttributeExtractor"/>
+        // <searchAttribute name="gender" expression="value.getGender()"/>
+        // <searchAttribute name="state" expression="value.getState()"/>
         // </cache>
-
-       
 
         cacheManagerConfig.addCache(cacheConfig);
 
@@ -94,7 +93,7 @@ public class EhcacheSearchPlaying {
         Query query = cache.createQuery();
         query.includeKeys();
         query.includeValues();
-        query.add(new And(name.like("Ari*"), gender.eq(Gender.MALE)));
+        query.add(new And(name.like("Ari*"), gender.eq(Gender.MALE))).addOrder(age, Direction.ASCENDING).maxResults(10);
 
         long t = System.currentTimeMillis();
         System.out.println("Searching for all Person's who's name start with Ari and are Male:");
@@ -167,7 +166,8 @@ public class EhcacheSearchPlaying {
     public static class NameAttributeExtractor implements AttributeExtractor {
 
         /**
-         * 
+         * Implementing the AttributeExtractor Interface and passing it in allows you to create very efficient and specific attribute
+         * extraction for performance sensative code
          */
         private static final long serialVersionUID = 1L;
 
