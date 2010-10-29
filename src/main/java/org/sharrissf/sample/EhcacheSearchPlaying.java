@@ -80,6 +80,7 @@ public class EhcacheSearchPlaying {
 
         Query query = cache.createQuery();
         query.includeKeys();
+        query.includeValues();
         query.add(new And(name.like("Ari*"), gender.eq(Gender.MALE)));
 
         long t = System.currentTimeMillis();
@@ -89,7 +90,8 @@ public class EhcacheSearchPlaying {
         System.out.println("Took: " + (System.currentTimeMillis() - t) + " Size: " + results.size());
         System.out.println("----Results-----");
         for (Result result : results.all()) {
-            System.out.println("Got: Key[" + result.getKey() + "] Value class ["+result.getValue().getClass()+"] Value [" + result.getValue() + "]");
+            System.out.println("Got: Key[" + result.getKey() + "] Value class [" + result.getValue().getClass() + "] Value ["
+                    + result.getValue() + "]");
         }
 
         read();
