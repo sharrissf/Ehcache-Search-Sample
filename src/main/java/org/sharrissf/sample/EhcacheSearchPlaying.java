@@ -10,6 +10,7 @@ import net.sf.ehcache.config.Configuration;
 import net.sf.ehcache.config.SearchAttribute;
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
+import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
 import net.sf.ehcache.search.aggregator.Average;
 import net.sf.ehcache.search.aggregator.Count;
@@ -86,6 +87,10 @@ public class EhcacheSearchPlaying {
 
         Results results = query.execute();
         System.out.println("Took: " + (System.currentTimeMillis() - t) + " Size: " + results.size());
+        System.out.println("----Results-----");
+        for (Result result : results.all()) {
+            System.out.println("Got: Key[" + result.getKey() + "] Value class ["+result.getValue().getClass()+"] Value [" + result.getValue() + "]");
+        }
 
         read();
 
