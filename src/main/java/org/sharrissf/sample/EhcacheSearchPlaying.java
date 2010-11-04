@@ -8,6 +8,7 @@ import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.Configuration;
 import net.sf.ehcache.config.SearchAttribute;
+import net.sf.ehcache.config.Searchable;
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Direction;
 import net.sf.ehcache.search.Query;
@@ -40,40 +41,33 @@ public class EhcacheSearchPlaying {
         Configuration cacheManagerConfig = new Configuration();
         cacheManagerConfig.addDefaultCache(new CacheConfiguration());
         CacheConfiguration cacheConfig = new CacheConfiguration("test", -1).eternal(true);
+        Searchable searchable = new Searchable();
+        cacheConfig.addSearchable(searchable);
 
         // Create attributes on the stuff we want to be able to search on.
 
         // You can use an expression for getting at the value to be indexed on a cache or you can code your own
 
-        // Expression
-        SearchAttribute sa = new SearchAttribute();
-        sa.setExpression("value.getAge()");
-        sa.setName("age");
-        cacheConfig.addSearchAttribute(sa);
+        // Expressions
+        searchable.addSearchAttribute(new SearchAttribute().name("age").expression("value.getAge()"));
+        searchable.addSearchAttribute(new SearchAttribute().name("gender").expression("value.getGender()"));
+        searchable.addSearchAttribute(new SearchAttribute().name("state").expression("value.getAddress().getState()"));
 
         // Coding your own
-        sa = new SearchAttribute();
-        sa.className("org.sharrissf.sample.EhcacheSearchPlaying$NameAttributeExtractor");
-        sa.setName("name");
-        cacheConfig.addSearchAttribute(sa);
+        searchable.addSearchAttribute(new SearchAttribute().name("name").className(
+                "org.sharrissf.sample.EhcacheSearchPlaying$NameAttributeExtractor"));
 
-        sa = new SearchAttribute();
-        sa.setExpression("value.getGender()");
-        sa.setName("gender");
-        cacheConfig.addSearchAttribute(sa);
-
-        sa = new SearchAttribute();
-        sa.setExpression("value.getAddress().getState()");
-        sa.setName("state");
-        cacheConfig.addSearchAttribute(sa);
-
-        // If you want to initialize it via ehcache.xml it would look like this
-        // <cache name="test" maxElementsInMemory="0" eternal="true" overflowToDisk="false">
-        // <searchAttribute name="age" expression="value.getAge()"/>
-        // <searchAttribute name="name" class="org.sharrissf.sample.EhcacheSearchPlaying$NameAttributeExtractor"/>
-        // <searchAttribute name="gender" expression="value.getGender()"/>
-        // <searchAttribute name="state" expression="value.getState()"/>
-        // </cache>
+        /*
+         * If you want to initialize it via ehcache.xml it would look like this:
+         * <cache name="test" maxElementsInMemory="0" eternal="true" overflowToDisk="false">
+         * <searchable>
+         * <searchAttribute name="age" expression="value.getAge()"/>
+         * <searchAttribute name="name" class="org.sharrissf.sample.EhcacheSearchPlaying$NameAttributeExtractor"/>
+         * <searchAttribute name="gender" expression="value.getGender()"/>
+         * <searchAttribute name="state" expression="value.getState()"/>
+         * </searchable>
+         * </cache>
+         */
 
         cacheManagerConfig.addCache(cacheConfig);
 
@@ -165,11 +159,9 @@ public class EhcacheSearchPlaying {
 
         /**
          * Implementing the AttributeExtractor Interface and passing it in allows you to create very efficient and specific attribute
-         * extraction for performance sensative code
+         * extraction for performance sensitive code
          */
-        private static final long serialVersionUID = 1L;
 
-        @Override
         public Object attributeFor(Element element) {
             return ((Person) element.getValue()).getName();
         }
