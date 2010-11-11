@@ -1,5 +1,7 @@
 package org.sharrissf.sample;
 
+import static net.sf.ehcache.search.expression.Logic.and;
+
 import java.io.IOException;
 
 import net.sf.ehcache.CacheManager;
@@ -16,7 +18,6 @@ import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
 import net.sf.ehcache.search.aggregator.Aggregators;
 import net.sf.ehcache.search.attribute.AttributeExtractor;
-import net.sf.ehcache.search.expression.And;
 
 import org.sharrissf.sample.Person.Gender;
 
@@ -94,7 +95,7 @@ public class EhcacheSearchPlaying {
 
 		Query query = cache.createQuery();
 		query.includeKeys();
-		query.add(new And(name.like("Ari*"), gender.eq(Gender.MALE)))
+		query.add(and(name.like("Ari*"), gender.eq(Gender.MALE)))
 				.addOrder(age, Direction.ASCENDING).maxResults(10);
 
 		long t = System.currentTimeMillis();
