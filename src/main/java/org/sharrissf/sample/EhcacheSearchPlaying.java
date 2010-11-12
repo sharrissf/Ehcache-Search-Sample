@@ -93,7 +93,7 @@ public class EhcacheSearchPlaying {
 
 		Query query = cache.createQuery();
 		query.includeKeys();
-		query.add(name.like("Ari*").and(gender.eq(Gender.MALE)))
+		query.addCriteria(name.like("Ari*").and(gender.eq(Gender.MALE)))
 				.addOrder(age, Direction.ASCENDING).maxResults(10);
 
 		long t = System.currentTimeMillis();
@@ -142,7 +142,7 @@ public class EhcacheSearchPlaying {
 				.println("Find the average age of all people between 30 and 40");
 
 		Query agesBetween = cache.createQuery();
-		agesBetween.add(age.between(30, 40));
+		agesBetween.addCriteria(age.between(30, 40));
 		agesBetween.includeAggregator(Aggregators.average(age));
 		System.out.println("Average age between 30 and 40: "
 				+ agesBetween.execute().getAggregatorResults());
@@ -151,7 +151,7 @@ public class EhcacheSearchPlaying {
 
 		System.out.println("Find the count of people from NJ");
 
-		Query newJerseyCountQuery = cache.createQuery().add(state.eq("NJ"));
+		Query newJerseyCountQuery = cache.createQuery().addCriteria(state.eq("NJ"));
 		newJerseyCountQuery.includeAggregator(Aggregators.count());
 		System.out.println("Count of people from NJ: "
 				+ newJerseyCountQuery.execute().getAggregatorResults());
