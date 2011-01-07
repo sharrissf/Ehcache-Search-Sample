@@ -57,7 +57,7 @@
   <repositories>
     <repository> 
       <id>terracotta-snapshots</id> 
-      <url>http://snapshots.terracotta.org</url>
+      <url>http://www.terracotta.org/download/reflector/snapshots</url>
     </repository>
   </repositories>
 
