@@ -1,38 +1,40 @@
 package org.sharrissf.sample;
 
-public class Address {
-    private String street;
-    private String state;
-    private String city;
+import java.io.Serializable;
 
-    public Address(String street, String city, String state) {
-        this.setStreet(street);
-        this.setState(state);
-        this.setCity(city);
-    }
+public class Address implements Serializable {
+	private String street;
+	private String state;
+	private String city;
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public Address(String street, String city, String state) {
+		this.setStreet(street);
+		this.setState(state);
+		this.setCity(city);
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public String getStreet() {
-        return street;
-    }
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getStreet() {
+		return street;
+	}
 
 }

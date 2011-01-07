@@ -39,9 +39,20 @@ public class EhcacheSearchPlaying {
 
 		// Create Cache
 		Configuration cacheManagerConfig = new Configuration();
+
+		// ***To Cluster With Terracotta***
+		// cacheManagerConfig.addDefaultCache(new CacheConfiguration());
+		// TerracottaClientConfiguration tcConfig = new
+		// TerracottaClientConfiguration().url("localhost:9510");
+		// cacheManagerConfig.addTerracottaConfig(tcConfig);
+		// ***To Cluster With Terracotta***
+
 		cacheManagerConfig.addDefaultCache(new CacheConfiguration());
+
 		CacheConfiguration cacheConfig = new CacheConfiguration("test", -1)
-				.eternal(true);
+				.eternal(true)
+		// .terracotta(new TerracottaConfiguration()
+		;
 		Searchable searchable = new Searchable();
 		cacheConfig.addSearchable(searchable);
 
@@ -94,7 +105,7 @@ public class EhcacheSearchPlaying {
 		Query query = cache.createQuery();
 		query.includeKeys();
 		query.addCriteria(name.like("Ari*").and(gender.eq(Gender.MALE)))
-		     .addOrderBy(age, Direction.ASCENDING).maxResults(10);
+				.addOrderBy(age, Direction.ASCENDING).maxResults(10);
 
 		long t = System.currentTimeMillis();
 		System.out
@@ -151,7 +162,8 @@ public class EhcacheSearchPlaying {
 
 		System.out.println("Find the count of people from NJ");
 
-		Query newJerseyCountQuery = cache.createQuery().addCriteria(state.eq("NJ"));
+		Query newJerseyCountQuery = cache.createQuery().addCriteria(
+				state.eq("NJ"));
 		newJerseyCountQuery.includeAggregator(Aggregators.count());
 		System.out.println("Count of people from NJ: "
 				+ newJerseyCountQuery.execute().getAggregatorResults());
