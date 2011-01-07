@@ -41,17 +41,23 @@ public class EhcacheSearchPlaying {
 		Configuration cacheManagerConfig = new Configuration();
 
 		// ***To Cluster With Terracotta***
-		// cacheManagerConfig.addDefaultCache(new CacheConfiguration());
+		// add the ehcache-terracotta-ee jar to your class path and uncomment the
+		// code in the "To Cluster With Terracotta" sections
+		//
 		// TerracottaClientConfiguration tcConfig = new
-		// TerracottaClientConfiguration().url("localhost:9510");
+		// TerracottaClientConfiguration()
+		// .url("localhost:9510");
 		// cacheManagerConfig.addTerracottaConfig(tcConfig);
+		
 		// ***To Cluster With Terracotta***
 
 		cacheManagerConfig.addDefaultCache(new CacheConfiguration());
 
 		CacheConfiguration cacheConfig = new CacheConfiguration("test", -1)
 				.eternal(true)
-		// .terracotta(new TerracottaConfiguration()
+		// ***To Cluster With Terracotta***
+		// .terracotta(new TerracottaConfiguration())
+		// ***To Cluster With Terracotta***
 		;
 		Searchable searchable = new Searchable();
 		cacheConfig.addSearchable(searchable);
@@ -71,14 +77,12 @@ public class EhcacheSearchPlaying {
 				.expression("value.getAddress().getState()"));
 
 		// Coding your own extracter
-		searchable
-				.addSearchAttribute(new SearchAttribute()
-						.name("name")
-						.className(
-								"org.sharrissf.sample.EhcacheSearchPlaying$NameAttributeExtractor"));
+		searchable.addSearchAttribute(new SearchAttribute().name("name")
+				.className(NameAttributeExtractor.class.getName()));
 
 		/*
 		 * If you want to initialize it via ehcache.xml it would look like this:
+		 * 
 		 * <cache name="test" maxElementsInMemory="0" eternal="true"
 		 * overflowToDisk="false"> <searchable> <searchAttribute name="age"/>
 		 * <searchAttribute name="name"
