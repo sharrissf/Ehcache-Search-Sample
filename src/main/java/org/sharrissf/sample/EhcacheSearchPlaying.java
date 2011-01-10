@@ -149,7 +149,7 @@ public class EhcacheSearchPlaying {
 		Query averageAgeQuery = cache.createQuery();
 		averageAgeQuery.includeAggregator(Aggregators.average(age));
 		System.out.println("Average age: "
-				+ averageAgeQuery.execute().getAggregatorResults());
+				+ averageAgeQuery.execute().all().iterator().next().getAggregatorResults());
 
 		read();
 
@@ -160,7 +160,7 @@ public class EhcacheSearchPlaying {
 		agesBetween.addCriteria(age.between(30, 40));
 		agesBetween.includeAggregator(Aggregators.average(age));
 		System.out.println("Average age between 30 and 40: "
-				+ agesBetween.execute().getAggregatorResults());
+				+ agesBetween.execute().all().iterator().next().getAggregatorResults());
 
 		read();
 
@@ -170,7 +170,7 @@ public class EhcacheSearchPlaying {
 				state.eq("NJ"));
 		newJerseyCountQuery.includeAggregator(Aggregators.count());
 		System.out.println("Count of people from NJ: "
-				+ newJerseyCountQuery.execute().getAggregatorResults());
+				+ newJerseyCountQuery.execute().all().iterator().next().getAggregatorResults());
 	}
 
 	private void loadCache() {
