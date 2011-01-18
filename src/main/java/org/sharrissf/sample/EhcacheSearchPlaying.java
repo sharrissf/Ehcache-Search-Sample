@@ -108,7 +108,7 @@ public class EhcacheSearchPlaying {
 
 		Query query = cache.createQuery();
 		query.includeKeys();
-		query.addCriteria(name.like("Ari*").and(gender.eq(Gender.MALE)))
+		query.addCriteria(name.ilike("Ari*").and(gender.eq(Gender.MALE)))
 				.addOrderBy(age, Direction.ASCENDING).maxResults(10);
 
 		long t = System.currentTimeMillis();

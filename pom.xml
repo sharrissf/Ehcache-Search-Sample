@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.sharrissf.sample</groupId>
   <artifactId>ehcache-search-sample</artifactId>
-  <version>0.0.7-SNAPSHOT</version>
+  <version>0.0.8-SNAPSHOT</version>
   <name>Ehcache Search Sample</name>
   <description>Quick samples with the Ehcache Search Nightly
   </description>
