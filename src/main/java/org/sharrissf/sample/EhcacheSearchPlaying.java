@@ -52,8 +52,6 @@ public class EhcacheSearchPlaying {
 
 		// ***To Cluster With Terracotta***
 
-		cacheManagerConfig.addDefaultCache(new CacheConfiguration());
-
 		CacheConfiguration cacheConfig = new CacheConfiguration("test", -1)
 				.eternal(true)
 		// ***To Cluster With Terracotta***
