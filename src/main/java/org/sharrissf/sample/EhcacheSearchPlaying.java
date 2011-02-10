@@ -41,14 +41,15 @@ public class EhcacheSearchPlaying {
 		Configuration cacheManagerConfig = new Configuration();
 
 		// ***To Cluster With Terracotta***
-		// add the ehcache-terracotta-ee jar to your class path and uncomment the
+		// add the ehcache-terracotta-ee jar to your class path and uncomment
+		// the
 		// code in the "To Cluster With Terracotta" sections
 		//
 		// TerracottaClientConfiguration tcConfig = new
 		// TerracottaClientConfiguration()
 		// .url("localhost:9510");
 		// cacheManagerConfig.addTerracottaConfig(tcConfig);
-		
+
 		// ***To Cluster With Terracotta***
 
 		cacheManagerConfig.addDefaultCache(new CacheConfiguration());
@@ -76,7 +77,7 @@ public class EhcacheSearchPlaying {
 		searchable.addSearchAttribute(new SearchAttribute().name("state")
 				.expression("value.getAddress().getState()"));
 
-		// Coding your own extracter
+		// Coding your own extractor
 		searchable.addSearchAttribute(new SearchAttribute().name("name")
 				.className(NameAttributeExtractor.class.getName()));
 
@@ -105,9 +106,10 @@ public class EhcacheSearchPlaying {
 		Attribute<Gender> gender = cache.getSearchAttribute("gender");
 		Attribute<String> name = cache.getSearchAttribute("name");
 		Attribute<String> state = cache.getSearchAttribute("state");
-
+		
 		Query query = cache.createQuery();
 		query.includeKeys();
+		query.includeValues();
 		query.addCriteria(name.ilike("Ari*").and(gender.eq(Gender.MALE)))
 				.addOrderBy(age, Direction.ASCENDING).maxResults(10);
 
@@ -120,11 +122,9 @@ public class EhcacheSearchPlaying {
 				+ " Size: " + results.size());
 		System.out.println("----Results-----\n");
 		for (Result result : results.all()) {
-			System.out
-					.println("Got: Key[" + result.getKey() + "] Value class ["
-							+ cache.get(result.getKey()).getValue()
-							+ "] Value ["
-							+ cache.get(result.getKey()).getValue() + "]");
+			System.out.println("Got: Key[" + result.getKey()
+					+ "] Value class [" + result.getValue().getClass()
+					+ "] Value [" + result.getValue() + "]");
 		}
 
 		read();
@@ -149,7 +149,8 @@ public class EhcacheSearchPlaying {
 		Query averageAgeQuery = cache.createQuery();
 		averageAgeQuery.includeAggregator(Aggregators.average(age));
 		System.out.println("Average age: "
-				+ averageAgeQuery.execute().all().iterator().next().getAggregatorResults());
+				+ averageAgeQuery.execute().all().iterator().next()
+						.getAggregatorResults());
 
 		read();
 
@@ -160,7 +161,8 @@ public class EhcacheSearchPlaying {
 		agesBetween.addCriteria(age.between(30, 40));
 		agesBetween.includeAggregator(Aggregators.average(age));
 		System.out.println("Average age between 30 and 40: "
-				+ agesBetween.execute().all().iterator().next().getAggregatorResults());
+				+ agesBetween.execute().all().iterator().next()
+						.getAggregatorResults());
 
 		read();
 
@@ -170,7 +172,8 @@ public class EhcacheSearchPlaying {
 				state.eq("NJ"));
 		newJerseyCountQuery.includeAggregator(Aggregators.count());
 		System.out.println("Count of people from NJ: "
-				+ newJerseyCountQuery.execute().all().iterator().next().getAggregatorResults());
+				+ newJerseyCountQuery.execute().all().iterator().next()
+						.getAggregatorResults());
 	}
 
 	private void loadCache() {

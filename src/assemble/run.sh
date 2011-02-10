@@ -1,1 +1,1 @@
-java -Xms200m -Xmx200m -cp ".:./target/ehcache-search-sample-0.0.8-SNAPSHOT.jar:./lib/ehcache-core-2.4.0-SNAPSHOT.jar:./lib/slf4j-api-1.6.1.jar:./lib/slf4j-jdk14-1.6.1.jar" org.sharrissf.sample.EhcacheSearchPlaying
+java -Xms200m -Xmx200m -cp ".:./target/ehcache-search-sample-0.0.9-SNAPSHOT.jar:./lib/ehcache-core-2.4.0-SNAPSHOT.jar:./lib/slf4j-api-1.6.1.jar:./lib/slf4j-jdk14-1.6.1.jar" org.sharrissf.sample.EhcacheSearchPlaying
