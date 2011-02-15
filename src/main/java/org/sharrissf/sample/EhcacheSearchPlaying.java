@@ -40,23 +40,14 @@ public class EhcacheSearchPlaying {
 		// Create Cache
 		Configuration cacheManagerConfig = new Configuration();
 
-		// ***To Cluster With Terracotta***
-		// add the ehcache-terracotta-ee jar to your class path and uncomment
-		// the
-		// code in the "To Cluster With Terracotta" sections
-		//
 		// TerracottaClientConfiguration tcConfig = new
 		// TerracottaClientConfiguration()
 		// .url("localhost:9510");
 		// cacheManagerConfig.addTerracottaConfig(tcConfig);
 
-		// ***To Cluster With Terracotta***
-
 		CacheConfiguration cacheConfig = new CacheConfiguration("test", -1)
 				.eternal(true)
-		// ***To Cluster With Terracotta***
 		// .terracotta(new TerracottaConfiguration())
-		// ***To Cluster With Terracotta***
 		;
 		Searchable searchable = new Searchable();
 		cacheConfig.addSearchable(searchable);
@@ -104,20 +95,18 @@ public class EhcacheSearchPlaying {
 		Attribute<Gender> gender = cache.getSearchAttribute("gender");
 		Attribute<String> name = cache.getSearchAttribute("name");
 		Attribute<String> state = cache.getSearchAttribute("state");
-		
+
 		Query query = cache.createQuery();
 		query.includeKeys();
 		query.includeValues();
 		query.addCriteria(name.ilike("Ari*").and(gender.eq(Gender.MALE)))
 				.addOrderBy(age, Direction.ASCENDING).maxResults(10);
 
-		long t = System.currentTimeMillis();
 		System.out
 				.println("Searching for all Person's who's name start with Ari and are Male:");
 
 		Results results = query.execute();
-		System.out.println("Took: " + (System.currentTimeMillis() - t)
-				+ " Size: " + results.size());
+		System.out.println(" Size: " + results.size());
 		System.out.println("----Results-----\n");
 		for (Result result : results.all()) {
 			System.out.println("Got: Key[" + result.getKey()
@@ -132,12 +121,10 @@ public class EhcacheSearchPlaying {
 		cache.put(new Element(1, new Person("Ari Eck", 36, Gender.MALE,
 				"eck street", "San Mateo", "CA")));
 
-		t = System.currentTimeMillis();
 		System.out
 				.println("Again Searching for all Person's who's name start with Ari and are Male:");
 		results = query.execute();
-		System.out.println("Took: " + (System.currentTimeMillis() - t)
-				+ " Size: " + results.size());
+		System.out.println(" Size: " + results.size());
 
 		read();
 
