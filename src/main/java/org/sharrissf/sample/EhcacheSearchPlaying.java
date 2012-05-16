@@ -16,6 +16,7 @@ import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
 import net.sf.ehcache.search.aggregator.Aggregators;
 import net.sf.ehcache.search.attribute.AttributeExtractor;
+import net.sf.ehcache.search.attribute.AttributeExtractorException;
 
 import org.sharrissf.sample.Person.Gender;
 
@@ -45,7 +46,7 @@ public class EhcacheSearchPlaying {
 		// .url("localhost:9510");
 		// cacheManagerConfig.addTerracottaConfig(tcConfig);
 
-		CacheConfiguration cacheConfig = new CacheConfiguration("test", -1)
+		CacheConfiguration cacheConfig = new CacheConfiguration("test", 0)
 				.eternal(true)
 		// .terracotta(new TerracottaConfiguration())
 		;
@@ -199,5 +200,10 @@ public class EhcacheSearchPlaying {
 			return ((Person) element.getValue()).getName();
 		}
 
+		@Override
+		public Object attributeFor(Element element, String arg1)
+				throws AttributeExtractorException {
+			return attributeFor(element);
+		}
 	}
 }
